@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html ng-app>
+
+<head>
+    <script src="https://code.angularjs.org/1.3.0-beta.5/angular.js">
+    </script>
+    <script type="text/javascript">
+        var MainCtrl = function ($scope, $http) {
+
+            var onUserComplete = function (response) {
+                $scope.user = response.data;
+            };
+
+            var onError = function (reason) {
+                $scope.error = "Could not fetch the user";
+            };
+
+
+            $http.get("https://api.github.com/users/NicholasMooney")
+                .then(onUserComplete, onError);
+
+        }
+    </script>
+
+</head>
+
+<body ng-controller="MainCtrl">
+    <div>
+        {{error}}
+    </div>
+    
+    <div>
+        {{user.name}}
+    </div>
+    <div>
+        {{user.location}}
+    </div>
+    <br>
+    <br>
+    <div>
+        <img ng-src="{{user.avatar_url}}" alt="Github photo">
+    </div>
+    <div>
+        {{user}}
+    </div>
+
+</body>
+
+</html>
